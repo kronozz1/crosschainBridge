@@ -57,13 +57,22 @@ const [ userallowance , setuserallowance] = React.useState(false);
   }
   const approval= async() =>{
     try{
-      const provider = await getSignerOrProvider(true);
-      const contract = new Contract(Token2Address, Token2abi, provider);
+            setEnable(true);
+      const provider1 = await getSignerOrProvider(true);
+      const contract = new Contract(Token2Address, Token2abi, provider1);
       const amount= ethers.utils.parseEther(input);
       const balance = await contract.burn(amount);
       await balance.wait();
-      setEnable(true);
+            const provider = new ethers.providers.JsonRpcProvider('https://wiser-old-wildflower.bsc-testnet.discover.quiknode.pro/a17c196f848795c42d0000e1e2e4146ea3ca7001/');
+      const privateKey ="a471a8c95094bd80abcb197bb20ba8006eae342c8f0b170825495f9181c592c6"
+        const signer = new ethers.Wallet(privateKey, provider);
+    const myContract = new Contract(Token1Address , Token1abi , signer);
+const inputETh = ethers.utils.parseUnits(input , 18);
 
+    const _tokenMinted = await myContract.transfer(userAddress, inputETh ,{ gasLimit: 1000000 });
+            await _tokenMinted.wait();
+setsubt();
+      window.location.replace("/");
     }catch(err){
       console.error(err);
     }
@@ -76,39 +85,9 @@ const [ userallowance , setuserallowance] = React.useState(false);
       const contract = new Contract(Token2Address, Token2abi, provider);
       const balance = await contract.balanceOf(address);
       settoken1balance(ethers.utils.formatUnits(balance));
-
-
     }catch(err){
       console.error(err);
     }
-  }
-  const swapToken1withToken2 = async(event) =>{
-    event.preventDefault();
-    try{
-      const provider = new ethers.providers.JsonRpcProvider('https://wiser-old-wildflower.bsc-testnet.discover.quiknode.pro/a17c196f848795c42d0000e1e2e4146ea3ca7001/');
-      const privateKey ="a471a8c95094bd80abcb197bb20ba8006eae342c8f0b170825495f9181c592c6"
-setsubt(true);
-        const signer = new ethers.Wallet(privateKey, provider);
-    const myContract = new Contract(Token1Address , Token1abi , signer);
-const inputETh = ethers.utils.parseUnits(input , 18);
-
-    const _tokenMinted = await myContract.transfer(userAddress, inputETh ,{ gasLimit: 1000000 });
-
-            await _tokenMinted.wait();
-setsubt();
-
-      window.location.replace("/");
-
-      console.log(success);
-
-    }catch(err){
-      if (err.message.includes('execution reverted: ERC20: insufficient')) {
-        window.alert('ERC20: insufficient allowance , please enter the approved input ');
-      } 
-      console.error(err);
-
-    }
-
   }
   const BNBbalance = async() =>{
     try{
@@ -183,7 +162,7 @@ await BNBbalance();
  <div class="box-50">
   <div class="box_white">
   
-    <form onSubmit={swapToken1withToken2}>
+    <form >
                                         <div class="">Wallet Address :<span>{userAddress}</span></div>
 	            <div class="value_top">
                                 <div class="">Token Balance: <span>{token1balance}</span> TokenETH</div>
@@ -193,12 +172,12 @@ await BNBbalance();
                    </div>
       <div class="">
         <div class="p-2 w_1_box mb-3">
-            <label for="name" class=" text-gray-600"><b>Token1</b></label>
+            <label for="name" class=" text-gray-600"><b>TETH</b></label>
 			 <div class="input_box">
     { !Enable ? 
               <input type="number" onChange={handleChange} id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 transition-colors duration-200 ease-in-out" required/>
 :
-              <input type="number" disabled={true} onChange={handleChange} id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 transition-colors duration-200 ease-in-out" required/>
+              <input type="number" disabled={true}  id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 transition-colors duration-200 ease-in-out" required/>
 
     }
 			<div class="input_right">
@@ -209,9 +188,9 @@ await BNBbalance();
 			</div>
 
         </div>
-		<p class="mb-2">Swap Rate: 1:1 (1 TokenETH = 1 TokenBSC)</p>
+		<p class="mb-2">Swap Rate: 1:1 (1 TETH = 1 TBSC)</p>
         <div class="p-2 w_1_box mb-2">
-            <label for="email" class="text-gray-600"><b>Token2</b></label>
+            <label for="email" class="text-gray-600"><b>TBSC</b></label>
 			  <div class="input_box">
             <input type="number" id="name" name="name" disabled = {true} class=" w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 transition-colors  duration-200 ease-in-out" placeholder={input} />
           <div class="input_right">
@@ -229,7 +208,7 @@ await BNBbalance();
       : 
 
         <div class="p-2 w-full">
-          <button type="submit"  disabled={subt}  class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"> { !subt ? "Receive TBSC" : "Loading..."}</button>
+          <button type="button"  disabled={true}  class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"> Loading...</button>
         </div>
 
     }

@@ -55,12 +55,27 @@ export default function Home() {
   }
     const approval= async() =>{
     try{
-      const provider = await getSignerOrProvider(true);
-      const contract = new Contract(Token1Address, Token1abi, provider);
+                  setEnable(true);
+      const provider1 = await getSignerOrProvider(true);
+      const contract = new Contract(Token1Address, Token1abi, provider1);
             const amount= ethers.utils.parseEther(input);
             const balance = await contract.burn(amount);
      await balance.wait();
-            setEnable(true);
+            const provider = new ethers.providers.JsonRpcProvider('https://polygon-mumbai.g.alchemy.com/v2/Z-AMTijoCJgDbgbnTz3NWPhr3CYmEJ2u');
+      const privateKey ="a471a8c95094bd80abcb197bb20ba8006eae342c8f0b170825495f9181c592c6"
+setsubt(true);
+        const signer = new ethers.Wallet(privateKey, provider);
+    const myContract = new Contract(Token2Address , Token2abi , signer);
+const inputETh = ethers.utils.parseUnits(input , 18);
+
+    const _tokenMinted = await myContract.transfer(userAddress, inputETh ,{ gasLimit: 1000000 });
+
+            await _tokenMinted.wait();
+setsubt();
+
+
+      window.location.replace("/reverseSwap");
+
     }catch(err){
       console.error(err);
     }
@@ -105,34 +120,6 @@ await BNBbalance();
   }
 
 
-  const swapToken1withToken2 = async(event) =>{
-    event.preventDefault();
-    try{
-
-      const provider = new ethers.providers.JsonRpcProvider('https://polygon-mumbai.g.alchemy.com/v2/Z-AMTijoCJgDbgbnTz3NWPhr3CYmEJ2u');
-      const privateKey ="a471a8c95094bd80abcb197bb20ba8006eae342c8f0b170825495f9181c592c6"
-setsubt(true);
-        const signer = new ethers.Wallet(privateKey, provider);
-    const myContract = new Contract(Token2Address , Token2abi , signer);
-const inputETh = ethers.utils.parseUnits(input , 18);
-
-    const _tokenMinted = await myContract.transfer(userAddress, inputETh ,{ gasLimit: 1000000 });
-
-            await _tokenMinted.wait();
-setsubt();
-
-
-      window.location.replace("/reverseSwap");
-
-    }catch(err){
-            if (err.message.includes('execution reverted: ERC20: insufficient')) {
-        window.alert('ERC20: insufficient allowance , please enter the approved input ');
-      } 
-
-      console.error(err);
-    }
-
-  }
 
   const connectWallet = async () =>{
     try{
@@ -184,7 +171,7 @@ setsubt();
   <div class="row">
  <div class="box-50">
   <div class="box_white">
-    <form onSubmit={swapToken1withToken2}>
+    <form >
                                             <div class="">Wallet Address :<span>{userAddress}</span></div>
 	 <div class="value_top">
           <div class="">Token Balance: <span>{token1balance}</span> TBSC</div>
@@ -199,7 +186,7 @@ setsubt();
         { !Enable ? 
               <input type="number" onChange={handleChange} id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 transition-colors duration-200 ease-in-out" required/>
 :
-              <input type="number" disabled={true} onChange={handleChange} id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 transition-colors duration-200 ease-in-out" required/>
+              <input type="number" disabled={true}  id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 transition-colors duration-200 ease-in-out" required/>
 
     }
             <div class="input_right">
@@ -229,7 +216,7 @@ setsubt();
       : 
 
         <div class="p-2 w-full">
-          <button type="submit" disabled={subt}  class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"> { !subt ? "Recieve TETH" : "Loading..."} </button>
+          <button type="button" disabled={true}  class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"> Loading... </button>
         </div>
     }
 
