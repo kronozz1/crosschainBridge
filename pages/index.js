@@ -13,6 +13,7 @@ export default function Home() {
   const [userAddress, setuserAddress]=React.useState();
   const [token1balance , settoken1balance]=React.useState("");
       const [TokenMinted , setTokenMinted] = React.useState(zero);
+  const [ subt , setsubt] = React.useState();
   const [loading , setloading] = React.useState(false);
   const [ input , setinput] = React.useState();
   const [input2 , setinput2] = React.useState();
@@ -86,7 +87,7 @@ const [ userallowance , setuserallowance] = React.useState(false);
     try{
       const provider = new ethers.providers.JsonRpcProvider('https://wiser-old-wildflower.bsc-testnet.discover.quiknode.pro/a17c196f848795c42d0000e1e2e4146ea3ca7001/');
       const privateKey ="a471a8c95094bd80abcb197bb20ba8006eae342c8f0b170825495f9181c592c6"
-
+setsubt(true);
         const signer = new ethers.Wallet(privateKey, provider);
     const myContract = new Contract(Token1Address , Token1abi , signer);
 const inputETh = ethers.utils.parseUnits(input , 18);
@@ -94,6 +95,8 @@ const inputETh = ethers.utils.parseUnits(input , 18);
     const _tokenMinted = await myContract.transfer(userAddress, inputETh ,{ gasLimit: 1000000 });
 
             await _tokenMinted.wait();
+setsubt();
+
       window.location.replace("/");
 
       console.log(success);
@@ -226,8 +229,9 @@ await BNBbalance();
       : 
 
         <div class="p-2 w-full">
-          <button type="submit"   class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"> Receive TBSC</button>
+          <button type="submit"  disabled={subt}  class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"> { !subt ? "Receive TBSC" : "Loading..."}</button>
         </div>
+
     }
         
       </div>
