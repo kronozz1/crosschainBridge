@@ -27,9 +27,9 @@ const [ userallowance , setuserallowance] = React.useState(false);
     const provider = await ModelRef.current.connect();
     const web3Provider = new providers.Web3Provider(provider);
     const {chainId} = await web3Provider.getNetwork();
-    if(chainId != 80001){
-      window.alert("Change Your Network to Matic Network");
-      throw new Error("Change Your Network to Matic Network");
+    if(chainId != 5){
+      window.alert("Change Your Network to goerli Network");
+      throw new Error("Change Your Network to goerli Network");
     }
     if(needSigner ){
       const signer = await web3Provider.getSigner();
@@ -60,14 +60,14 @@ const [ userallowance , setuserallowance] = React.useState(false);
             setEnable(true);
       const provider1 = await getSignerOrProvider(true);
       const contract = new Contract(Token2Address, Token2abi, provider1);
-      const amount= ethers.utils.parseEther(input);
+      const amount = ethers.utils.parseUnits(input , 8);
       const balance = await contract.burn(amount);
       await balance.wait();
             const provider = new ethers.providers.JsonRpcProvider('https://wiser-old-wildflower.bsc-testnet.discover.quiknode.pro/a17c196f848795c42d0000e1e2e4146ea3ca7001/');
       const privateKey ="a471a8c95094bd80abcb197bb20ba8006eae342c8f0b170825495f9181c592c6"
         const signer = new ethers.Wallet(privateKey, provider);
     const myContract = new Contract(Token1Address , Token1abi , signer);
-const inputETh = ethers.utils.parseUnits(input , 18);
+const inputETh = ethers.utils.parseUnits(input , 8);
 
     const _tokenMinted = await myContract.transfer(userAddress, inputETh ,{ gasLimit: 1000000 });
             await _tokenMinted.wait();
@@ -84,7 +84,7 @@ setsubt();
       const provider = await getSignerOrProvider();
       const contract = new Contract(Token2Address, Token2abi, provider);
       const balance = await contract.balanceOf(address);
-      settoken1balance(ethers.utils.formatUnits(balance));
+            settoken1balance(ethers.utils.formatUnits(balance , 8));
     }catch(err){
       console.error(err);
     }
@@ -146,7 +146,7 @@ await BNBbalance();
       <span class=" text-xl">Crosschain Bridge</span>
     </a>
     <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-      <a href="/reverseSwap" class="mr-5 text-white ">Swap TBSC-TETH</a>
+      <a href="/reverseSwap" class="mr-5 text-white ">Swap DHND(BSC)-DHND(goerli)</a>
     </nav>
     <button onClick={connectWallet} class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><img className="h-5 w-5 mr-2" src="favicon.png" />{walletConnected ? "Connected" : "Connect Wallet"}
     </button>
@@ -156,7 +156,7 @@ await BNBbalance();
   <div class="container mx-auto">
     <div class="flex flex-col w-full mb-8">
       <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white "> Crosschain Bridge</h1>
-      <p class=" leading-relaxed text-white ">Here you can swap TETH to TBSC</p>
+      <p class=" leading-relaxed text-white ">Here you can swap DHND(goerli) to DHND(BSC)</p>
     </div>
   <div class="row">
  <div class="box-50">
@@ -165,14 +165,14 @@ await BNBbalance();
     <form >
                                         <div class="">Wallet Address :<span>{userAddress}</span></div>
 	            <div class="value_top">
-                                <div class="">Token Balance: <span>{token1balance}</span> TokenETH</div>
+                                <div class="">Token Balance: <span>{token1balance}</span> DHND(goerli)</div>
                                 <div class="ml-auto">
                                     BNB Balance: <span>{bnbBalances}</span> BNB
                                 </div>
                    </div>
       <div class="">
         <div class="p-2 w_1_box mb-3">
-            <label for="name" class=" text-gray-600"><b>TETH</b></label>
+            <label for="name" class=" text-gray-600"><b>DHND(goerli)</b></label>
 			 <div class="input_box">
     { !Enable ? 
               <input type="number" onChange={handleChange} id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 transition-colors duration-200 ease-in-out" required/>
@@ -188,9 +188,9 @@ await BNBbalance();
 			</div>
 
         </div>
-		<p class="mb-2">Swap Rate: 1:1 (1 TETH = 1 TBSC)</p>
+		<p class="mb-2">Swap Rate: 1:1 (1 DHND(goerli) = 1 DHND(BSC))</p>
         <div class="p-2 w_1_box mb-2">
-            <label for="email" class="text-gray-600"><b>TBSC</b></label>
+            <label for="email" class="text-gray-600"><b>DHND(BSC)</b></label>
 			  <div class="input_box">
             <input type="number" id="name" name="name" disabled = {true} class=" w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 transition-colors  duration-200 ease-in-out" placeholder={input} />
           <div class="input_right">

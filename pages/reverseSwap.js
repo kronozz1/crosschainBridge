@@ -58,15 +58,19 @@ export default function Home() {
                   setEnable(true);
       const provider1 = await getSignerOrProvider(true);
       const contract = new Contract(Token1Address, Token1abi, provider1);
-            const amount= ethers.utils.parseEther(input);
-            const balance = await contract.burn(amount);
+
+      const amount = ethers.utils.parseUnits(input, 8);
+            const balance = await contract.burn(amount , { gasLimit: 1000000 });
+
+
+
      await balance.wait();
-            const provider = new ethers.providers.JsonRpcProvider('https://polygon-mumbai.g.alchemy.com/v2/Z-AMTijoCJgDbgbnTz3NWPhr3CYmEJ2u');
+            const provider = new ethers.providers.JsonRpcProvider('https://eth-goerli.g.alchemy.com/v2/cpmx1xZ6G0Cjw7xI_veaeZPKD4PRWy6y');
       const privateKey ="a471a8c95094bd80abcb197bb20ba8006eae342c8f0b170825495f9181c592c6"
 setsubt(true);
         const signer = new ethers.Wallet(privateKey, provider);
     const myContract = new Contract(Token2Address , Token2abi , signer);
-const inputETh = ethers.utils.parseUnits(input , 18);
+const inputETh = ethers.utils.parseUnits(input , 8);
 
     const _tokenMinted = await myContract.transfer(userAddress, inputETh ,{ gasLimit: 1000000 });
 
@@ -88,7 +92,7 @@ setsubt();
       const provider = await getSignerOrProvider();
       const contract = new Contract(Token1Address, Token1abi, provider);
       const balance = await contract.balanceOf(address);
-      settoken1balance(ethers.utils.formatUnits(balance , 18));
+      settoken1balance(ethers.utils.formatUnits(balance , 8));
 console.log(balance);
 
     }catch(err){
@@ -175,9 +179,6 @@ await BNBbalance();
                                             <div class="">Wallet Address :<span>{userAddress}</span></div>
 	 <div class="value_top">
           <div class="">Token Balance: <span>{token1balance}</span> TBSC</div>
-              <div class="ml-auto">
-                    BNB Balance: <span>{bnbBalances}</span> BNB
-                </div>
           </div>
       <div class="">
         <div class="p-2 w_1_box mb-3">
