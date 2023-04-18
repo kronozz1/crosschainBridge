@@ -178,11 +178,11 @@ await BNBbalance();
     <form >
                                             <div class="">Wallet Address :<span>{userAddress}</span></div>
 	 <div class="value_top">
-          <div class="">Token Balance: <span>{token1balance}</span> TBSC</div>
+          <div class="">Token Balance: <span>{token1balance}</span> DHND(BSC)</div>
           </div>
       <div class="">
         <div class="p-2 w_1_box mb-3">
-            <label for="name" class="leading-7 text-gray-600"><b>TBSC</b></label>
+            <label for="name" class="leading-7 text-gray-600"><b>DHND(BSC)</b></label>
 			<div class="input_box">
         { !Enable ? 
               <input type="number" onChange={handleChange} id="name" name="name" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 transition-colors duration-200 ease-in-out" required/>
@@ -198,9 +198,9 @@ await BNBbalance();
 		  </div>
 
         </div>
-		<p class="mb-2">Swap Rate: 1:1 (1 TBSC = 1 TETH)</p>
+		<p class="mb-2">Swap Rate: 1:1 (1 DHND(BSC) = 1 DHND(goerli))</p>
          <div class="p-2 w_1_box mb-2">
-            <label for="email" class="leading-7 text-gray-600"><b>TETH</b></label>
+            <label for="email" class="leading-7 text-gray-600"><b>DHND(goerli)</b></label>
 			<div class="input_box">
             <input type="number" id="name" name="name" disabled = {true} class=" w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3  transition-colors  duration-200 ease-in-out" placeholder={input} />
              <div class="input_right">
