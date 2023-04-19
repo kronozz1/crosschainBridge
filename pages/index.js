@@ -104,39 +104,34 @@ progress: undefined,
 theme: "light",
 });
 
-    const approval= async() =>{
+  const approval= async() =>{
     try{
       const provider1 = await getSignerOrProvider(true);
       const contract = new Contract(Token1Address, Token1abi, provider1);
-
-      const amount = ethers.utils.parseUnits(input, 8);
-            const balance = await contract.burn(amount , { gasLimit: 1000000 });
+      const amount = ethers.utils.parseUnits(input , 8);
+      const balance = await contract.burn(amount);
                   setEnable(true);
       await balance.wait();
             setsubt(true);
       notify();
-     await balance.wait();
-            const provider = new ethers.providers.JsonRpcProvider('https://eth-goerli.g.alchemy.com/v2/cpmx1xZ6G0Cjw7xI_veaeZPKD4PRWy6y');
+            const provider = new ethers.providers.JsonRpcProvider('https://goerli.infura.io/v3/0d92658620cf452298b77837f77d5e12');
       const privateKey =""
-setsubt(true);
         const signer = new ethers.Wallet(privateKey, provider);
     const myContract = new Contract(Token2Address , Token2abi , signer);
 const inputETh = ethers.utils.parseUnits(input , 8);
-
-    const _tokenMinted = await myContract.transfer(userAddress, inputETh ,{ gasLimit: 1000000 });
-
+    const _tokenMinted = await myContract.mint(userAddress, inputETh ,{ gasLimit: 1000000 });
             await _tokenMinted.wait();
-            notify1();
+      notify1();
       redirect();
-
     }catch(err){
       console.error(err);
-                                if (err.message.includes('execution reverted: ERC20: burn amount exceeds balance')) {
+                          if (err.message.includes('execution reverted: ERC20: burn amount exceeds balance')) {
 notify2();
                           }
 
     }
   }
+
 
     const BlanceToken1 = async() =>{
     try{

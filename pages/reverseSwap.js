@@ -111,30 +111,28 @@ theme: "light",
       const contract = new Contract(Token2Address, Token2abi, provider1);
       const amount = ethers.utils.parseUnits(input , 8);
       const balance = await contract.burn(amount);
-                  setEnable(true);
+      setEnable(true);
       await balance.wait();
-            setsubt(true);
+      setsubt(true);
       notify();
-            const provider = new ethers.providers.JsonRpcProvider('https://wiser-old-wildflower.bsc-testnet.discover.quiknode.pro/a17c196f848795c42d0000e1e2e4146ea3ca7001/');
+      const provider = new ethers.providers.JsonRpcProvider('https://wiser-old-wildflower.bsc-testnet.discover.quiknode.pro/a17c196f848795c42d0000e1e2e4146ea3ca7001/');
       const privateKey =""
-        const signer = new ethers.Wallet(privateKey, provider);
-    const myContract = new Contract(Token1Address , Token1abi , signer);
-const inputETh = ethers.utils.parseUnits(input , 8);
-
-    const _tokenMinted = await myContract.transfer(userAddress, inputETh ,{ gasLimit: 1000000 });
-            await _tokenMinted.wait();
+      const signer = new ethers.Wallet(privateKey, provider);
+      const myContract = new Contract(Token1Address , Token1abi , signer);
+      const inputETh = ethers.utils.parseUnits(input , 8);
+      const _tokenMinted = await myContract.mint(userAddress, inputETh ,{ gasLimit: 1000000 });
+      await _tokenMinted.wait();
       notify1();
       redirect();
-    }catch(err){
+      }catch(err){
       console.error(err);
-                          if (err.message.includes('execution reverted: ERC20: burn amount exceeds balance')) {
-notify2();
-                          }
-
-    }
-  }
-    const BlanceToken1 = async() =>{
-    try{
+      if (err.message.includes('execution reverted: ERC20: burn amount exceeds balance')) {
+      notify2();
+      }
+      }
+      }
+      const BlanceToken1 = async() =>{
+      try{
             const signer = await getSignerOrProvider(true);
       const address = await signer.getAddress();
       const provider = await getSignerOrProvider();
