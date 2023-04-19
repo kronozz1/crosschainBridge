@@ -213,7 +213,7 @@ await BNBbalance();
       <span class=" text-xl">Crosschain Bridge</span>
     </a>
     <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-      <a href="/reverseSwap" class="mr-5 text-white">Swap Token1-Token2</a>
+      <a href="/reverseSwap" class="mr-5 text-white">Swap DHND(BSC) - DHND(goerli)</a>
     </nav>
     <button onClick={connectWallet} class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"><img className="h-5 w-5 mr-2" src="favicon.png" />{walletConnected ? "Connected" : "Connect Wallet"}
     </button>
@@ -224,7 +224,7 @@ await BNBbalance();
   <div class="container mx-auto">
     <div class="flex flex-col w-full mb-8">
       <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white "> Crosschain Bridge </h1>
-      <p class=" leading-relaxed text-white ">Here you can swap Token1 to Token2</p>
+      <p class=" leading-relaxed text-white ">Here you can swap DHND(BSC) to DHND(goerli)</p>
     </div>
   <div class="row">
  <div class="box-50">
